@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/how-long-i-ve-been-waiting-for-my-ps4/precache-manifest.483c78fe51747e6040c9f707c2c05bbb.js"
+  "/how-long-i-ve-been-waiting-for-my-ps4/precache-manifest.e4e976cdf5504c7daded50fc7871ae0c.js"
 );
 
 self.addEventListener('message', (event) => {
