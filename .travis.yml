@@ -14,10 +14,7 @@ script:
   - yarn run build
 
 deploy:
-  provider: pages
-  local-dir: build
-  skip-cleanup: true
-  github-token: $GH_TOKEN
-  keep-history: true
+  provider: script
+  script: bash scripts/deploy.sh
   on:
     branch: master
