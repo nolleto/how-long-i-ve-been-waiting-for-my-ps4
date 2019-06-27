@@ -29,7 +29,7 @@ const useTimeCounter = ({ starDate, endDate, setTime }) => {
     updateTime();
 
     return () => intervalId && clearInterval(intervalId);
-  }, [])
+  }, [endDate, getDiff, setTime])
 }
 
 const TimerCounter = ({ starDate, endDate }) => {
