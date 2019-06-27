@@ -19,21 +19,28 @@ const getDiffCreator = (starDate) => () => {
     seconds: formatValue(seconds, 60),
   }
 }
-const TimerCounter = ({ starDate }) => {
-  const getDiff = getDiffCreator(starDate);
-  const [time, setTime] = useState(getDiff());
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(getDiff())
-    }, 1000);
+const useTimeCounter = ({ starDate, endDate, setTime }) => {
+  const getDiff = getDiffCreator(starDate);
+
+  return useEffect(() => {
+    const updateTime = () => setTime(getDiff());
+    const intervalId = setInterval(updateTime, 1000);
+
+    updateTime();
 
     return () => clearInterval(intervalId);
-  }, [getDiff])
+  }, [])
+}
+
+const TimerCounter = ({ starDate, endDate }) => {
+  const [time, setTime] = useState('');
+
+  useTimeCounter({ starDate, endDate, setTime });
 
   return (
     <span className='timer-counter'>
-      {`${time.days} days ${time.hours} hours ${time.minutes} minutes ${time.seconds} seconds`}
+      {time && `${time.days} days ${time.hours} hours ${time.minutes} minutes ${time.seconds} seconds`}
     </span>
   );
 }
