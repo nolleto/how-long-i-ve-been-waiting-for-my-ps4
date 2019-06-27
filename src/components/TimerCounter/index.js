@@ -4,9 +4,8 @@ import React, { useEffect, useState } from 'react'
 
 const formatValue = (value, maxValue) => value % maxValue;
 
-const getDiffCreator = (starDate) => () => {
-  const now = new Date();
-  const difference = now.getTime() - starDate.getTime();
+const getDiffCreator = (starDate, endDate) => () => {
+  const difference = (endDate || new Date()).getTime() - starDate.getTime();
   const seconds = Math.floor(difference / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
@@ -21,15 +20,15 @@ const getDiffCreator = (starDate) => () => {
 }
 
 const useTimeCounter = ({ starDate, endDate, setTime }) => {
-  const getDiff = getDiffCreator(starDate);
+  const getDiff = getDiffCreator(starDate, endDate);
 
   return useEffect(() => {
     const updateTime = () => setTime(getDiff());
-    const intervalId = setInterval(updateTime, 1000);
+    const intervalId = !endDate && setInterval(updateTime, 1000);
 
     updateTime();
 
-    return () => clearInterval(intervalId);
+    return () => intervalId && clearInterval(intervalId);
   }, [])
 }
 
